@@ -31,7 +31,10 @@ It contains the public key (`publicKey` file) and the private key (`privateKey` 
 It contains more than 200 domains along with their corresponding IP addresses. For simulation purpose, all the records will be stored at a time in the volatile memory (RAM) by the server at the beginning of the simulation.
 
 ## Attacker File (`Attacker` folder)
-It contains the file(s) created by `Attacker` client. If zone walking attack is successful, then the file in the folder will store almost all data from domain-IP records.
+It contains the file(s) created by `Attacker` client. If zone walking attack is successful, then the file in the folder will store almost all the data from the server's domain-IP records.
+
+## Main Files (`ClientMain` and `ServerMain` in `src` folder)
+These are the classes containing `main` functions for server and client. To test the simulation in various server-client combinations, these files may be edited. It is obvious that server must be run first before running clients. Only a single server can be run at a time using same port, but more than one clients can be run simultaneously.
 
 
 Acknowledgement

@@ -95,7 +95,7 @@ public class NSEC extends Server {
             return;
         }
 
-        // handle invalid characters (may happens) or probable invisible (very very rare case)
+        // handle invalid characters (may happens) and probable invisible characters (very very rare case)
         if ((domain.indexOf(',') != -1 || domain.indexOf(' ') != -1)
                 || (domain.compareTo(startDomainBound) <= 0 || domain.compareTo(endDomainBound) >= 0)) {
             out.println("Request is completely invalid: probable invisible character found.");

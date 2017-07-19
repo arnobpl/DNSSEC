@@ -7,6 +7,14 @@ This project simulates DNSSEC (especially NSEC) focusing how to prevent zone wal
 
 Code Overview
 =============
+## Automated Test (`src/AutomatedTest.java`)
+For automatic testing, only the `main` method in this source should be used. It automatically runs server with low profiling mechanism and attacker clients. It also generates a file (`AutomatedTest/data.csv`) containing the test result. The result contains the data of 5 columns:
+  - `AttackNoise`: The amount of noise in scale of 0.0 to 1.0 (inclusive), higher noise for stronger attack
+  - `DomainFetched`: The number of domains fetched from the server by the attacker using zone walking attack
+  - `AttackCoverage`: The ratio between the number of domains fetched by the attacker and the number of domains stored in the server
+  - `AttackRuntime (msec)`: The elapsed runtime of the attacker client (in milliseconds)
+  - `AttackSpeed (domain per msec)`: The speed of fetching domain by the attacker (in the number of domains fetched per millisecond)
+
 ## Server Package (`src/DNSSEC/ServerPack`)
   - `Server` class: It is an abstract class. The methods `setupServer` and `respond` must be implemented in subclasses.
   - `Security` package: All the classes inside the package implement `Server` abstract class. Here are the classes:
@@ -33,8 +41,8 @@ It contains more than 200 domains along with their corresponding IP addresses. F
 ## Attacker File (`Attacker` folder)
 It contains the file(s) created by `Attacker` client. If zone walking attack is successful, then the file in the folder will store almost all the data from the server's domain-IP records.
 
-## Main Files (`ClientMain` and `ServerMain` in `src` folder)
-These are the classes containing `main` functions for server and client. To test the simulation in various server-client combinations, these files may be edited. It is obvious that server must be run first before running clients. Only a single server can be run at a time using same port, but more than one clients can be run simultaneously.
+## Main Files (`ClientMain.java` and `ServerMain.java` in `src` folder)
+These are the classes containing `main` methods for server and client. To test the simulation in various server-client combinations, these files may be edited. It is obvious that server must be run before running any client. Only a single server can be run at a time using same port, but more than one clients can be run simultaneously.
 
 
 Acknowledgement

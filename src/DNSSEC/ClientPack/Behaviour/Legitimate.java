@@ -116,7 +116,7 @@ public class Legitimate extends Client {
     /**
      * This method is used in existing domain response verification.
      */
-    private static boolean isVerified(String domain, String ip, String signature) {
+    private synchronized static boolean isVerified(String domain, String ip, String signature) {
         String message = domain + "," + ip;
         try {
             return Integer.toString(message.hashCode()).equals(rsa.getHashFromSignature(signature, publicKey));
@@ -129,7 +129,7 @@ public class Legitimate extends Client {
     /**
      * This method is used in non-existing domain response verification.
      */
-    private static boolean isVerified(String domain, String domainRangeStart, String domainRangeEnd, String signature) {
+    private synchronized static boolean isVerified(String domain, String domainRangeStart, String domainRangeEnd, String signature) {
         // check if domain in the range
         if (domain.compareTo(domainRangeStart) < 0 || domain.compareTo(domainRangeEnd) > 0)
             return false;

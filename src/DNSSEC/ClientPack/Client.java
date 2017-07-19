@@ -35,6 +35,8 @@ public abstract class Client {
     private Scanner in;
     private PrintWriter out;
 
+    private volatile boolean isFinished = false;
+
 
     public Client(String clientIp) {
         this.clientIp = clientIp;
@@ -86,6 +88,9 @@ public abstract class Client {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+                // change isFinished flag
+                isFinished = true;
             }).start();
         } catch (IOException e) {
             e.printStackTrace();
@@ -101,4 +106,11 @@ public abstract class Client {
      * It is not needed to close socket after request because it is already done by {@code Client}.
      */
     protected abstract void request(Scanner in, PrintWriter out);
+
+    /**
+     * @return {@code true} if the client finishes its request, otherwise {@code false}
+     */
+    public final boolean isFinished() {
+        return isFinished;
+    }
 }

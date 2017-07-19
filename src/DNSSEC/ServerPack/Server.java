@@ -177,6 +177,10 @@ public abstract class Server {
      */
     protected abstract void respond(Scanner in, PrintWriter out, String clientIp);
 
+    public final int domainCount() {
+        return domainIpList.size();
+    }
+
     public final void stopServer() {
         isRunning = false;
         clientResponseThreads.shutdownNow();

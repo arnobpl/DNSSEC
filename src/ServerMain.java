@@ -8,7 +8,7 @@ import DNSSEC.ServerPack.Server;
 public class ServerMain {
     public static void main(String[] args) {
         //Server server = new NSEC();
-        Server server = new LowProfiling();
+        Server server = new LowProfiling(10);
         server.runServer();
     }
 }

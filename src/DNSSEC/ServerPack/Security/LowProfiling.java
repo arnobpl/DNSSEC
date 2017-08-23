@@ -15,14 +15,19 @@ public class LowProfiling extends Server {
 
     private static final long oldRecordCleanupTimeElapsed = 300000; // in millisecond
 
-    private static final int maxSuspiciousRecordsForEachClient = 10;
     private static final long suspiciousClientBlockTimeElapsed = 120000;    // in millisecond
 
     // ---------- Configurable Data (end) ---------- //
 
 
+    private final int totalSuspiciousRecordsForEachClient;
+
     private Map<String, Activity> clientRecordMap;
 
+
+    public LowProfiling(int totalSuspiciousRecordsForEachClient) {
+        this.totalSuspiciousRecordsForEachClient = totalSuspiciousRecordsForEachClient;
+    }
 
     @Override
     public void setupServer() {
@@ -77,7 +82,7 @@ public class LowProfiling extends Server {
     }
 
 
-    private static class Activity {
+    private class Activity {
         private LinkedList<Record> requestRecords = new LinkedList<>();
 
         private boolean isSuspicious = false;
@@ -104,7 +109,7 @@ public class LowProfiling extends Server {
                     requestRecords.clear();
                 }
                 // check if previous requests in lexicographical order exceeds the constant (suspicious)
-                else if (requestRecords.size() >= maxSuspiciousRecordsForEachClient) {
+                else if (requestRecords.size() >= totalSuspiciousRecordsForEachClient) {
                     isSuspicious = true;
                     requestRecords.removeFirst();
                 }
@@ -132,7 +137,7 @@ public class LowProfiling extends Server {
         }
 
 
-        private static class Record {
+        private class Record {
             public String domain;
             public long time;
 

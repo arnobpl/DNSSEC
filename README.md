@@ -8,8 +8,12 @@ This project simulates DNSSEC (especially NSEC) focusing how to prevent zone wal
 Code Overview
 =============
 ## Automated Test (`src/AutomatedTest.java`)
-For automatic testing, only the `main` method in this source should be used. It automatically runs server with low profiling mechanism and attacker clients. It also generates a file (`AutomatedTest/data.csv`) containing the test result. The result contains the data of 5 columns:
-  - `AttackNoise`: The amount of noise in scale of 0.0 to 1.0 (inclusive), higher noise for stronger attack
+For automatic testing, only the `main` method in this source should be used. It automatically runs server with low profiling mechanism and attacker clients. It also generates files (in `AutomatedTest` folder) containing the test results. The results contain the data of 
+1 input column for attacker (`AttackNoise`) and 1 input column for server (`TotalSuspiciousRecords`):
+  - `AttackNoise` (for attacker): The amount of noise in scale of 0.0 to 1.0 (inclusive), higher noise for stronger attack
+  - `TotalSuspiciousRecords` (for server): The limiting value of total suspicious records for each client to detect attacker
+
+Each input column has 4 output columns common for both attacker and server:
   - `DomainFetched`: The number of domains fetched from the server by the attacker using zone walking attack
   - `AttackCoverage`: The ratio between the number of domains fetched by the attacker and the number of domains stored in the server
   - `AttackRuntime (msec)`: The elapsed runtime of the attacker client (in milliseconds)
